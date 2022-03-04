@@ -4,7 +4,6 @@ import torch
 import torch.distributed as dist
 from torch.utils.data.sampler import Sampler
 
-
 class SequentialDistributedSampler(Sampler):
     """
     Distributed Sampler that subsamples indicies sequentially,
