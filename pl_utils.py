@@ -53,6 +53,19 @@ class PLUL:
         return anchor_idxs
 
     def build_local_graph(self, x_embed, u_embed, args):
+        # GPU
+        index_ulf = faiss.IndexFlatIP(x_embed.shape[1])
+        res_ulf = faiss.StandardGpuResources()
+        # gpu_index_ulf = faiss.index_cpu_to_all_gpus(index_ulf)
+        gpu_index_ulf = faiss.index_cpu_to_gpu(res_ulf, args.gpu, index_ulf)
+        gpu_index_ulf.add(x_embed)
+        # index_ulf.add(x_embed)
+        D_ulf, I_ulf = gpu_index_ulf.search(u_embed, args.topk)
+        # D_ulf, I_ulf = index_ulf.search(u_embed, args.topk)
+        # del gpu_index_ulf
+        return edict({"d": D_ulf, "i": I_ulf})
+
+        # CPU
         index_ulf = faiss.IndexFlatIP(x_embed.shape[1])
         # res_ulf = faiss.StandardGpuResources()
         # gpu_index_ulf = faiss.index_cpu_to_all_gpus(index_ulf)
@@ -63,6 +76,7 @@ class PLUL:
         D_ulf, I_ulf = index_ulf.search(u_embed, args.topk)
         # del gpu_index_ulf
         return edict({"d": D_ulf, "i": I_ulf})
+
 
     def get_ds(self):
         ds = self.local_info["d"].mean(1)

@@ -31,6 +31,7 @@ This repository is the official implementation of [ACPL: Anti-curriculum Pseudo-
       * `num_gmm-sets` - {low, medium, high} number of GMM sets
       * `resume` - resume from supervised training checkpoint, remove if training from scratch
 
+2. In origin paper we use DenseNet-121 as backbone and compute graph on GPU with Faiss. For larger backbone, You can switch to CPU in case GPU memory runout.
 ## Citation
 
 If you find this repo useful for your research, please consider citing our paper:
