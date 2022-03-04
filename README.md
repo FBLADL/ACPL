@@ -10,7 +10,7 @@ This repository is the official implementation of [ACPL: Anti-curriculum Pseudo-
   ```setup
   pip install -r requirements.txt
   ```
-- This code is tested in two NVIDIA GTX 2080ti. Single card is supported but performance cannot guarantee. 
+- This code is tested in two NVIDIA RTX 2080ti. Single card is supported but performance cannot guarantee. 
 ## Datasets Preparation
 - First, please download Chest X-ray14 from https://nihcc.app.box.com/v/ChestXray-NIHCC
 - Move train_val_list_2_1.txt to data directory
