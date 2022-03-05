@@ -401,7 +401,7 @@ class ACPL_Trainer:
 
         self.test_transform = transforms.Compose(
             [
-                transforms.Resize(args.resize + 32 * 2),
+                transforms.Resize(args.resize),
                 transforms.ToTensor(),
                 transforms.Normalize(mean, std),
             ]
@@ -457,7 +457,7 @@ class ACPL_Trainer:
 
     def _create_model(self, arch, num_class, ema=False, imagenet=True):
         model1 = arch(pretrained=imagenet)
-        in_features = 1664
+        in_features = 1024
         model1.classifier = nn.Linear(in_features, num_class)
         # model1.fc = nn.Linear(in_features, num_class)
 
@@ -465,8 +465,8 @@ class ACPL_Trainer:
         return model1
 
     def _model_init(self, args):
-        # backbone = densenet.densenet121
-        backbone = densenet.densenet169
+        backbone = densenet.densenet121
+        # backbone = densenet.densenet169
         # backbone = resnet.resnet50
         self.net1 = self._create_model(backbone, args.num_class)
         self.net1_ema = self._create_model(
